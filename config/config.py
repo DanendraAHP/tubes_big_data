@@ -14,6 +14,6 @@ TRAIN_CONFIG = {
 }
 
 TEST_CONFIG = {
-    'TEST_FILENAME':'data/test.csv',
-    'X_COL':'tweet'
+    'TEST_FILENAME':'data/youtube-api.csv',
+    'X_COL':'description'
 }
