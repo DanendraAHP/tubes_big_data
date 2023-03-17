@@ -2,7 +2,6 @@ import pandas as pd
 import tensorflow as tf
 from config.config import TRAIN_CONFIG, TEST_CONFIG
 import re
-import pickle
 from src.text_vectorizer import Vectorizer
 
 AUTOTUNE = tf.data.AUTOTUNE
