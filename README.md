@@ -5,4 +5,6 @@ config : menyimpan konfigurasi yang diperlukan, untuk melakukan training maupun 
 data : menyimpan data untuk keperluan I/O 
 model : menyimpan model DL untuk analisis sentimen maupun vectorizer untuk tokenisasi teks
 src : menyimpan semua source code yang dibutuhkan
-  
+
+untuk keperluan training dan inference data dari sebuah file csv dapat langsung melihat di test.py
+Sementara jika ingin menggunakan hdfs sebagai I/O proses maka dapat melihat test_inference.py
