@@ -1,4 +1,5 @@
 TRAIN_CONFIG = {
+    'NUM_CLASS' : 2,
     'MAX_VOCAB' : 50000,
     'PAD_LENGTH' : 100,
     'BATCH_SIZE' : 32,
@@ -6,14 +7,14 @@ TRAIN_CONFIG = {
     'VERBOSE':1,
     'ES_PATIENCE':5,
     'MODEL_FOLDER':'model/lstm_model',
-    'TRAIN_FILENAME' : 'data/dataset_test.csv',
-    'X_COL' : 'tweet',
-    'Y_COL' : 'hasil',
+    'TRAIN_FILENAME' : 'data/Dataset-Sentimen-Analisis-Bahasa-Indonesia-master/dataset_tweet_sentiment_pilkada_DKI_2017.csv',
+    'X_COL' : 'Text Tweet',
+    'Y_COL' : 'Sentiment',
     'EMBEDDING_DIM' : 100,
     'VECTORIZER_FILE' : 'model/vectorizer.pkl'
 }
 
 TEST_CONFIG = {
-    'TEST_FILENAME':'data/youtube-api.csv',
-    'X_COL':'description'
+    'TEST_FILENAME':'data/Dataset-Sentimen-Analisis-Bahasa-Indonesia-master/dataset_tweet_sentiment_pilkada_DKI_2017.csv',
+    'X_COL':'Text Tweet'
 }

@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 class TFModel:
     def __init__(self):
+        self.num_class = TRAIN_CONFIG['NUM_CLASS']
         self.model_folder = TRAIN_CONFIG['MODEL_FOLDER']
         self.model_cp_path = f'{self.model_folder}/cp.ckpt'
         self.verbose = TRAIN_CONFIG['VERBOSE']
@@ -22,9 +23,14 @@ class TFModel:
         self.model.add(tf.keras.layers.GlobalMaxPooling1D())
         #Dense Layer
         self.model.add(tf.keras.layers.Dense(64,activation='relu')) 
-        self.model.add(tf.keras.layers.Dense(3, activation='softmax'))
-        #Add loss function, metrics, optimizer
-        self.model.compile(optimizer='adam', loss='categorical_crossentropy',metrics=["acc"]) 
+        if self.num_class>2:
+            self.model.add(tf.keras.layers.Dense(self.num_class, activation='softmax'))
+            #Add loss function, metrics, optimizer
+            self.model.compile(optimizer='adam', loss='categorical_crossentropy',metrics=["acc"]) 
+        else:
+            self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+            #Add loss function, metrics, optimizer
+            self.model.compile(optimizer='adam', loss='binary_crossentropy',metrics=["acc"]) 
     def train_model(self, train_data, val_data):
         print('creating the model'.center(60,'-'))
         self.create_model()
@@ -62,4 +68,7 @@ class TFModel:
         self.create_model()
         self.model.load_weights(self.model_cp_path)
         y_pred = self.model.predict(test_data)
-        return np.argmax(y_pred, axis=1)
+        if self.num_class>2:
+            return np.argmax(y_pred, axis=1)
+        else:
+            return [1 if y>0.5 else 0 for y in y_pred]
