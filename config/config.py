@@ -15,6 +15,24 @@ TRAIN_CONFIG = {
 }
 
 TEST_CONFIG = {
-    'TEST_FILENAME':'data/Dataset-Sentimen-Analisis-Bahasa-Indonesia-master/dataset_tweet_sentiment_pilkada_DKI_2017.csv',
-    'X_COL':'Text Tweet'
+    'TEST_FILENAME':'data/youtube-api.csv',
+    'X_COL':'description'
+}
+
+PRODUCER_CONFIG = {
+    'CREDENTIALS_FILE' : '../config/credential.json',
+    'KEYWORD_LIST' : {
+        'anies' : ['anies'],
+        'prabowo' : ['prabowo'],
+        'ganjar' : ['ganjar'],
+        'puan' : ['puan']
+    },
+    'HDFS_FOLDER' : 'hdfs://localhost:9000/pilkada_raw',
+    'KAFKA_TOPIC' : 'youtube-api'
+}
+
+INFERENCE_CONFIG = {
+    'RAW_FOLDER'  : 'hdfs://localhost:9000/pilkada_raw',
+    'RAW_CSV_FILE' : 'data/youtube-api.csv',
+    'INFERENCE_FOLDER' : 'hdfs://localhost:9000/youtube_inferred/' 
 }
