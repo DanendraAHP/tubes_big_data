@@ -2,6 +2,8 @@ import tensorflow as tf
 from config.config import TRAIN_CONFIG
 import pickle
 import numpy as np
+from sklearn.metrics import classification_report
+
 class TFModel:
     def __init__(self):
         self.num_class = TRAIN_CONFIG['NUM_CLASS']
@@ -57,10 +59,11 @@ class TFModel:
             callbacks=[es, mc],
             batch_size=self.batch_size
         )
-    def eval_model(self, val_data):
+    def eval_model(self, ds):
         print('evaluating the model'.center(20,'-'))
-        loss, accuracy = self.model.evaluate(val_data)
-        print(accuracy)
+        y_pred = self.inference(ds)
+        y_true = np.concatenate([y for x, y in ds], axis=0)
+        print(classification_report(y_true, y_pred))
     def train_and_eval(self, train_data, val_data):
         self.train_model(train_data, val_data)
         self.eval_model(val_data)
