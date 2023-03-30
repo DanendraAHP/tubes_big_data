@@ -16,7 +16,7 @@ TRAIN_CONFIG = {
 
 TEST_CONFIG = {
     'TEST_FILENAME':'data/youtube-api.csv',
-    'X_COL':'description'
+    'X_COL':'video_title'
 }
 
 PRODUCER_CONFIG = {

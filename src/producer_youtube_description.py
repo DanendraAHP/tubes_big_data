@@ -61,7 +61,7 @@ def search(youtube, **kwargs):
         part="snippet",
         **kwargs
     ).execute()
-def create_message(video_id, video_response):
+def create_message(video_id, video_response, tokoh, keyword):
     items = video_response.get("items")[0]
     # get the description
     snippet         = items["snippet"]
@@ -74,7 +74,9 @@ def create_message(video_id, video_response):
         'description':description,
         'published_at' : publish_time,
         'channel_title' : channel_title,
-        'video_title' : title
+        'video_title' : title,
+        'figure' : tokoh,
+        'keyword' : keyword
     }
 
 # authenticate to YouTube API, only do this for first time using the script
@@ -83,8 +85,8 @@ youtube = youtube_authenticate()
 #loop all keyword from tokoh politik
 for tokoh in PRODUCER_CONFIG['KEYWORD_LIST']:
     for keyword in PRODUCER_CONFIG['KEYWORD_LIST'][tokoh]:
-        #for now we only see 10 pages of the keyword search result
-        for page in range(10):
+        #for now we only see 3 pages of the keyword search result
+        for page in range(20):
             if page>=1:
                 response = search(youtube, q=keyword, maxResults=50, pageToken=next_page_token)
             #for the first time we won't have the nextPageToken
@@ -100,7 +102,7 @@ for tokoh in PRODUCER_CONFIG['KEYWORD_LIST']:
                     # get the video details
                     video_response = get_video_details(youtube, id=video_id)
                     # print the video details
-                    message = create_message(video_id, video_response)
+                    message = create_message(video_id, video_response, tokoh, keyword)
                     producer.send(PRODUCER_CONFIG['KAFKA_TOPIC'], value=message)
                 except:
                     continue
